@@ -22,7 +22,7 @@ ko.bindingHandlers['jqTabs'] = {
 };
 
 function exportSpells(dest) {
-    $.get('/resources/spells.csv', function (raw) {
+    $.get('./resources/spells.csv', function (raw) {
         var lines = raw.split('\n');
         function indexSpell(dest, school, level, spell) {
             if (!dest[school]) {
@@ -158,7 +158,7 @@ interface Definition {
 declare var sprintf;
 
 function makeMap(info: Definition, continuation : (string) => void) : void {
-    $.get('/resources/battle.map', function (rawMap) {
+    $.get('./resources/battle.map', function (rawMap) {
         var lines = [];
         var i: number;
         for(i = 0; i < 2; ++i)

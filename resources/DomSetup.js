@@ -23,7 +23,7 @@ ko.bindingHandlers['jqTabs'] = {
 };
 
 function exportSpells(dest) {
-    $.get('/resources/spells.csv', function (raw) {
+    $.get('./resources/spells.csv', function (raw) {
         var lines = raw.split('\n');
         function indexSpell(dest, school, level, spell) {
             if (!dest[school]) {
@@ -131,7 +131,7 @@ var Nation = (function () {
 ;
 
 function makeMap(info, continuation) {
-    $.get('/resources/battle.map', function (rawMap) {
+    $.get('./resources/battle.map', function (rawMap) {
         var lines = [];
         var i;
         for (i = 0; i < 2; ++i) {
