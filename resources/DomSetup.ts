@@ -9,15 +9,17 @@ function download(filename, text) {
 }
 
 ko.bindingHandlers['accordion'] = {
-    init: function (element) {
-        $(element)['accordion']();
+    init: function (element, valueAccessor) {
+        var options = valueAccessor() || {};
+        $(element)['accordion'](options);
     }
 }
-ko.bindingHandlers['tabs'] = {
-    init: function (element) {
-        $(element)['accordion']();
+ko.bindingHandlers['jqTabs'] = {
+    init: function (element, valueAccessor) {
+        var options = valueAccessor() || {};
+        setTimeout(function () { $(element)['tabs'](options); }, 0);
     }
-}
+};
 
 function exportSpells(dest) {
     $.get('/resources/spells.csv', function (raw) {
@@ -73,6 +75,13 @@ class Squad {
     }
 }
 
+class MagicItem {
+    name: KnockoutObservable<string>;
+    constructor() {
+        this.name = ko.observable(null);
+    }
+}
+
 interface CommanderArgs {
     name: string;
     squads: Squad[];
@@ -80,7 +89,7 @@ interface CommanderArgs {
 
 class Commander {
     name: KnockoutObservable<string>;
-    items: KnockoutObservableArray<string>;
+    items: KnockoutObservableArray<MagicItem>;
     squads: KnockoutObservableArray<Squad>;
     constructor (that : CommanderArgs) {
         this.name = ko.observable(that.name);
@@ -91,7 +100,7 @@ class Commander {
         this.squads.push(Squad.Create('', 0));
     }
     addItem() {
-        this.items.push(null);
+        this.items.push(new MagicItem);
     }
 }
 
@@ -146,8 +155,46 @@ interface Definition {
     nations: Nation[];
 };
 
+declare var sprintf;
+
 function makeMap(info: Definition, continuation : (string) => void) : void {
-    continuation("This is a map");
+    $.get('/resources/battle.map', function (rawMap) {
+        var lines = [];
+        var i: number;
+        for(i = 0; i < 2; ++i)
+        {
+            var nation = info.nations[i];
+            var land = [15, 22][i];
+            // Units first
+            lines.push(sprintf('#specstart %u %u', nation.nationNumber(), land));
+            lines.push(sprintf('#land %u', land));
+            [].forEach.call(nation.commanders(), function (c : Commander) {
+                lines.push(sprintf('#commander "%s"', c.name()));
+                [].forEach.call(c.items(), function (item: MagicItem) {
+                    lines.push(sprintf('#additem "%s"', item.name()));
+                });
+                [].forEach.call(c.squads(), function (squad: Squad) {
+                    var num = Number(squad.name());
+                    if (isNaN(num)) {
+                        // must be a name
+                        lines.push(sprintf('#units %u "%s"', squad.quantity(), squad.name()));
+                    }
+                    else {
+                        // specified by number
+                        lines.push(sprintf('#units %u %u', squad.quantity(), squad.name()));
+                    }
+                });                
+            });
+            // Blessing next
+            lines.push(sprintf('#god %u "Sage"', nation.nationNumber()));
+            for (var key in nation.blessing) {
+                if (nation.blessing[key]() > 0) {
+                    lines.push(sprintf('#mag_%s %u', key, nation.blessing[key]()));
+                }
+            }
+        }
+        continuation(rawMap + lines.join('\r\n'));
+    });
 }
 
 $(function () {
@@ -182,6 +229,7 @@ $(function () {
                 })
             ]
         };
+    window.inf2 = info;
     ko.applyBindings(info);
     $('#btnMap').click(function () {
         makeMap(info, map => download("battle.map", map));

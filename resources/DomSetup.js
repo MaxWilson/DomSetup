@@ -8,13 +8,17 @@ function download(filename, text) {
 }
 
 ko.bindingHandlers['accordion'] = {
-    init: function (element) {
-        $(element)['accordion']();
+    init: function (element, valueAccessor) {
+        var options = valueAccessor() || {};
+        $(element)['accordion'](options);
     }
 };
-ko.bindingHandlers['tabs'] = {
-    init: function (element) {
-        $(element)['accordion']();
+ko.bindingHandlers['jqTabs'] = {
+    init: function (element, valueAccessor) {
+        var options = valueAccessor() || {};
+        setTimeout(function () {
+            $(element)['tabs'](options);
+        }, 0);
     }
 };
 
@@ -66,6 +70,13 @@ var Squad = (function () {
     return Squad;
 })();
 
+var MagicItem = (function () {
+    function MagicItem() {
+        this.name = ko.observable(null);
+    }
+    return MagicItem;
+})();
+
 ;
 
 var Commander = (function () {
@@ -78,7 +89,7 @@ var Commander = (function () {
         this.squads.push(Squad.Create('', 0));
     };
     Commander.prototype.addItem = function () {
-        this.items.push(null);
+        this.items.push(new MagicItem);
     };
     return Commander;
 })();
@@ -120,7 +131,43 @@ var Nation = (function () {
 ;
 
 function makeMap(info, continuation) {
-    continuation("This is a map");
+    $.get('/resources/battle.map', function (rawMap) {
+        var lines = [];
+        var i;
+        for (i = 0; i < 2; ++i) {
+            var nation = info.nations[i];
+            var land = [15, 22][i];
+
+            // Units first
+            lines.push(sprintf('#specstart %u %u', nation.nationNumber(), land));
+            lines.push(sprintf('#land %u', land));
+            [].forEach.call(nation.commanders(), function (c) {
+                lines.push(sprintf('#commander "%s"', c.name()));
+                [].forEach.call(c.items(), function (item) {
+                    lines.push(sprintf('#additem "%s"', item.name()));
+                });
+                [].forEach.call(c.squads(), function (squad) {
+                    var num = Number(squad.name());
+                    if (isNaN(num)) {
+                        // must be a name
+                        lines.push(sprintf('#units %u "%s"', squad.quantity(), squad.name()));
+                    } else {
+                        // specified by number
+                        lines.push(sprintf('#units %u %u', squad.quantity(), squad.name()));
+                    }
+                });
+            });
+
+            // Blessing next
+            lines.push(sprintf('#god %u "Sage"', nation.nationNumber()));
+            for (var key in nation.blessing) {
+                if (nation.blessing[key]() > 0) {
+                    lines.push(sprintf('#mag_%s %u', key, nation.blessing[key]()));
+                }
+            }
+        }
+        continuation(rawMap + lines.join('\r\n'));
+    });
 }
 
 $(function () {
@@ -153,6 +200,7 @@ $(function () {
             })
         ]
     };
+    window.inf2 = info;
     ko.applyBindings(info);
     $('#btnMap').click(function () {
         makeMap(info, function (map) {
