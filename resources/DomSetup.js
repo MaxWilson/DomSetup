@@ -200,9 +200,9 @@ $(function () {
             })
         ]
     };
-    window.inf2 = info;
     ko.applyBindings(info);
     $('#btnMap').click(function () {
+        alert('Usage: save this map file to your Dom4 maps directory (e.g. c:\\Program Files\\Dominions4\\maps). It will create a new map called Battleground based on Talis. Start a new game using this map, and choose the same nations that you set up in this editor. By default these are EA Arco and EA Ermor, which you can auto-select and set to human by pressing Shift-H, Shift-T on the nation selection screen. Click through the pretender screens and start the game--you will have the units you entered in setup.');
         makeMap(info, function (map) {
             return download("battle.map", map);
         });
