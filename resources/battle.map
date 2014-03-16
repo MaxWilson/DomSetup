@@ -1,0 +1,269 @@
+-- 
+-- Map file for Dominions 4
+-- 
+-- Illwinter Game Design
+-- www.illwinter.com
+-- 
+
+-- Title and image file
+#dom2title Battleground
+#imagefile talis.tga
+#domversion 350
+#description "A small map suitable for testing battles between two nations."
+#scenario
+
+-- Province names/terrains
+#landname 1 "Omur"
+#terrain 1 33556484
+#landname 2 "Old Land"
+#terrain 2 2052
+#landname 3 "Quedra"
+#terrain 3 2052
+#landname 4 "Baccar"
+#terrain 4 4
+#landname 5 "Dunster"
+#terrain 5 4
+#landname 6 "Ophaleph"
+#terrain 6 4
+#landname 7 "Ebys"
+#terrain 7 0
+#landname 8 "Pholothras"
+#terrain 8 1025
+#landname 9 "Polmania"
+#terrain 9 1025
+#landname 10 "Wic"
+#terrain 10 0
+#landname 11 "Aenasia"
+#terrain 11 129
+#landname 12 "Remecia"
+#terrain 12 129
+#landname 13 "Dubros"
+#terrain 13 136
+#landname 14 "Dershid"
+#terrain 14 136
+#landname 15 "Ucrema"
+#terrain 15 33554432
+#landname 16 "Meer"
+#terrain 16 2
+#landname 17 "Betane"
+#terrain 17 16
+#landname 18 "Epernia"
+#terrain 18 9
+#landname 19 "Utonshire"
+#terrain 19 16
+#landname 20 "Mnace"
+#terrain 20 9
+#landname 21 "Ragdan"
+#terrain 21 2
+#landname 22 "Lliledhor"
+#terrain 22 33554432
+#landname 23 "Binophe"
+#terrain 23 4194432
+#landname 24 "Lama"
+#terrain 24 4194305
+#landname 25 "Fas Dir"
+#terrain 25 4194305
+#landname 26 "Zeburia"
+#terrain 26 256
+#landname 27 "Tesifon"
+#terrain 27 4194432
+#landname 28 "Anremark"
+#terrain 28 256
+#landname 29 "Ivenmoor"
+#terrain 29 4194304
+#terrain 30 4194345
+#terrain 31 4194345
+#terrain 32 4194304
+#terrain 33 1049
+
+-- Province neighbours
+#neighbour 1 3
+#neighbour 1 4
+#neighbour 1 6
+#neighbour 1 5
+#neighbour 1 2
+#neighbour 1 13
+#neighbour 1 14
+#neighbour 1 18
+#neighbour 1 20
+#neighbour 1 24
+#neighbour 1 25
+#neighbour 2 5
+#neighbour 3 4
+#neighbour 4 6
+#neighbour 4 7
+#neighbour 5 6
+#neighbour 5 10
+#neighbour 6 14
+#neighbour 6 13
+#neighbour 7 16
+#neighbour 7 15
+#neighbour 7 11
+#neighbour 8 19
+#neighbour 8 12
+#neighbour 8 13
+#neighbour 9 11
+#neighbour 9 17
+#neighbour 9 14
+#neighbour 10 12
+#neighbour 10 21
+#neighbour 11 15
+#neighbour 11 17
+#neighbour 12 19
+#neighbour 12 22
+#neighbour 12 21
+#neighbour 13 14
+#neighbourspec 13 14 2
+#neighbour 13 19
+#neighbour 13 20
+#neighbour 14 17
+#neighbour 14 18
+#neighbour 15 26
+#neighbour 15 16
+#neighbour 15 23
+#neighbour 15 17
+#neighbour 15 13
+#neighbour 15 14
+#neighbour 15 18
+#neighbour 15 20
+#neighbour 15 24
+#neighbour 15 25
+#neighbour 16 26
+#neighbour 17 23
+#neighbour 17 29
+#neighbour 17 24
+#neighbour 17 18
+#neighbour 18 20
+#neighbour 18 24
+#neighbour 19 20
+#neighbour 19 25
+#neighbour 19 32
+#neighbour 19 27
+#neighbour 19 22
+#neighbour 20 25
+#neighbour 21 22
+#neighbour 21 28
+#neighbour 22 27
+#neighbour 22 28
+#neighbour 22 13
+#neighbour 22 14
+#neighbour 22 18
+#neighbour 22 20
+#neighbour 22 24
+#neighbour 22 25
+#neighbour 23 26
+#neighbour 23 29
+#neighbour 24 30
+#neighbour 24 29
+#neighbour 25 32
+#neighbour 25 31
+#neighbour 27 32
+#neighbour 27 28
+#neighbour 30 31
+#neighbourspec 30 31 2
+#neighbour 30 33
+#neighbourspec 30 33 1
+#neighbour 31 33
+#neighbourspec 31 33 1
+
+-- Special per province commands
+
+--
+#land 14
+#owner 5
+#land 18
+#owner 5
+#land 24
+#owner 5
+#land 13
+#owner 6
+#land 20
+#owner 6
+#land 25
+#owner 6
+#land 1
+
+#specstart 5 15
+#land 15
+#commander "Melqart"
+#clearmagic
+#mag_astral 2
+#mag_blood 3
+#mag_priest 2
+#additem "Rainbow Armor"
+#additem "Vine Shield"
+#additem "Fire Brand"
+#additem "Winged Shoes"
+#commander "Melqart"
+#commander "Melqart"
+#clearmagic
+#mag_astral 2
+#mag_blood 3
+#mag_priest 2
+#additem "Rainbow Armor"
+#additem "Vine Shield"
+#additem "Fire Brand"
+#additem "Winged Shoes"
+#commander "Melqart"
+#commander "Melqart"
+#clearmagic
+#mag_astral 2
+#mag_blood 3
+#mag_priest 2
+#additem "Rainbow Armor"
+#additem "Vine Shield"
+#additem "Fire Brand"
+#additem "Winged Shoes"
+#commander "Melqart"
+#commander "Melqart"
+#clearmagic
+#mag_astral 2
+#mag_blood 3
+#mag_priest 2
+#additem "Rainbow Armor"
+#additem "Vine Shield"
+#additem "Fire Brand"
+#additem "Winged Shoes"
+#commander "Melqart"
+#commander "Melqart"
+#clearmagic
+#mag_astral 2
+#mag_blood 3
+#mag_priest 2
+#additem "Rainbow Armor"
+#additem "Vine Shield"
+#additem "Fire Brand"
+#additem "Winged Shoes"
+#commander "Melqart"
+#commander "Melqart"
+#clearmagic
+#mag_astral 2
+#mag_blood 3
+#mag_priest 2
+#additem "Rainbow Armor"
+#additem "Vine Shield"
+#additem "Fire Brand"
+#additem "Winged Shoes"
+#commander "Melqart"
+#god 5 "Sage"
+#mag_earth 9
+#mag_nature 9
+
+#specstart 29 22
+#land 22
+#commander "Gala"
+#additem "Black Bow of Botulf"
+#commander "Gala"
+#additem "Black Bow of Botulf"
+#commander "Gala"
+#additem "Black Bow of Botulf"
+#commander "Gala"
+#additem "Black Bow of Botulf"
+#commander "Gala"
+#additem "Black Bow of Botulf"
+#commander "Gala"
+#additem "Black Bow of Botulf"
+#god 29 "Sage"
+#mag_earth 9
+#mag_nature 9
+#mag_water 4

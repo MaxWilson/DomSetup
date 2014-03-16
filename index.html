@@ -1,79 +1,80 @@
-<!DOCTYPE html>
-<html>
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Dominions 4 battle setup</title>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/styles.css">
+    <script src="/resources/jquery.js"></script>
+    <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+    <script src="/resources/knockout-3.1.0.js"></script>
+    <script src="/resources/DomSetup.js"></script>
+</head>
+<body>
+    <h2>Dominions 4 Battle Setup</h2>
+    <h3>A tool to automate map/mod creation for battle testing in Dominions 4.</h3>
+    Currently under active development.
 
-  <head>
-    <meta charset='utf-8' />
-    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
-    <meta name="description" content="Domsetup : DomSetup is a tool to automate map/mod creation for battle testing in Dominions 4." />
-
-    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
-
-    <title>Domsetup</title>
-  </head>
-
-  <body>
-
-    <!-- HEADER -->
-    <div id="header_wrap" class="outer">
-        <header class="inner">
-          <a id="forkme_banner" href="https://github.com/MaxWilson/DomSetup">View on GitHub</a>
-
-          <h1 id="project_title">Domsetup</h1>
-          <h2 id="project_tagline">DomSetup is a tool to automate map/mod creation for battle testing in Dominions 4.</h2>
-
-            <section id="downloads">
-              <a class="zip_download_link" href="https://github.com/MaxWilson/DomSetup/zipball/master">Download this project as a .zip file</a>
-              <a class="tar_download_link" href="https://github.com/MaxWilson/DomSetup/tarball/master">Download this project as a tar.gz file</a>
-            </section>
-        </header>
+    <div data-bind="foreach: nations">
+        <div data-bind="accordion: {}">
+            <h3>Nation</h3>
+            <div>
+                5=EA Arco, 6=EA Ermor
+                <div>
+                    Nation Number: <input data-bind="value: nationNumber" />
+                </div>
+            </div>
+            <h3>Units</h3>
+            <div>
+                <h4>Commanders</h4>
+                <div>
+                    <button class="newUnit" data-bind="click: addCommander">New commander</button>
+                    <button data-bind="click: clearCommanders">Clear</button>
+                </div>
+                <div data-bind="foreach: commanders">
+                    <div>
+                        <h4>Commander</h4>
+                        Name: <input data-bind="value: name" />
+                    </div>
+                    <h4>Magic Items</h4>
+                    <button data-bind="click: addItem">Add item</button>
+                    <div data-bind="foreach: items">
+                        <div><input data-bind="value: $data" /></div>
+                    </div>
+                    <h4>Squads</h4>
+                    <button data-bind="click: addSquad">Add squad</button>
+                    <div data-bind="foreach: squads">
+                        <div>
+                            <input data-bind="value: name" />
+                            <input data-bind="value: quantity" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <h3>Blessing</h3>
+            <div data-bind="with: Blessing">
+                <p>Fire: <input data-bind="value:fire" /></p>
+                <p>Air: <input data-bind="value:air" /></p>
+                <p>Water: <input data-bind="value:water" /></p>
+                <p>Earth: <input data-bind="value:earth" /></p>
+                <p>Astral: <input data-bind="value:astral" /></p>
+                <p>Death: <input data-bind="value:death" /></p>
+                <p>Nature: <input data-bind="value:nature" /></p>
+                <p>Blood: <input data-bind="value:blood" /></p>
+                <p>Holy: <input data-bind="value:priest" /></p>
+            </div>
+            <h3>Research</h3>
+            <div id="SpellTab">
+                Mod generation coming soon
+            </div>
+            <h3>Gems</h3>
+            <div>
+                Mod generation coming soon
+            </div>
+        </div>
     </div>
-
-    <!-- MAIN CONTENT -->
-    <div id="main_content_wrap" class="outer">
-      <section id="main_content" class="inner">
-        <h3>
-<a name="welcome-to-github-pages" class="anchor" href="#welcome-to-github-pages"><span class="octicon octicon-link"></span></a>Welcome to GitHub Pages.</h3>
-
-<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here using GitHub Flavored Markdown, select a template crafted by a designer, and publish. After your page is generated, you can check out the new branch:</p>
-
-<pre><code>$ cd your_repo_root/repo_name
-$ git fetch origin
-$ git checkout gh-pages
-</code></pre>
-
-<p>If you're using the GitHub for Mac, simply sync your repository and you'll see the new branch.</p>
-
-<h3>
-<a name="designer-templates" class="anchor" href="#designer-templates"><span class="octicon octicon-link"></span></a>Designer Templates</h3>
-
-<p>We've crafted some handsome templates for you to use. Go ahead and continue to layouts to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved if it remained markdown format.</p>
-
-<h3>
-<a name="rather-drive-stick" class="anchor" href="#rather-drive-stick"><span class="octicon octicon-link"></span></a>Rather Drive Stick?</h3>
-
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
-
-<h3>
-<a name="authors-and-contributors" class="anchor" href="#authors-and-contributors"><span class="octicon octicon-link"></span></a>Authors and Contributors</h3>
-
-<p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor's GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
-
-<h3>
-<a name="support-or-contact" class="anchor" href="#support-or-contact"><span class="octicon octicon-link"></span></a>Support or Contact</h3>
-
-<p>Having trouble with Pages? Check out the documentation at <a href="http://help.github.com/pages">http://help.github.com/pages</a> or contact <a href="mailto:support@github.com">support@github.com</a> and we’ll help you sort it out.</p>
-      </section>
-    </div>
-
-    <!-- FOOTER  -->
-    <div id="footer_wrap" class="outer">
-      <footer class="inner">
-        <p class="copyright">Domsetup maintained by <a href="https://github.com/MaxWilson">MaxWilson</a></p>
-        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
-      </footer>
-    </div>
-
-    
-
-  </body>
+    <button id="btnMap">Download map</button>
+    <button id="btnMod" disabled>Download mod</button>
+</body>
 </html>
+
