@@ -116,12 +116,16 @@ var Nation = (function () {
         this.nationNumber = ko.observable(that.nationNumber);
         this.commanders = ko.observableArray(that.commanders);
         this.index = (Nation.indexStatic++);
+        this.blessing = new Blessing();
     }
     Nation.prototype.addCommander = function () {
         this.commanders.push(new Commander({ name: '', squads: [] }));
     };
     Nation.prototype.clearCommanders = function () {
         this.commanders.removeAll();
+    };
+    Nation.prototype.cloneCommander = function (commander) {
+        this.commanders.push(commander);
     };
     Nation.indexStatic = 1;
     return Nation;
@@ -139,7 +143,7 @@ function makeMap(info, continuation) {
             var land = [15, 22][i];
 
             // Units first
-            lines.push(sprintf('#specstart %u %u', nation.nationNumber(), land));
+            lines.push(sprintf('#specstart %s %u', nation.nationNumber(), land));
             lines.push(sprintf('#land %u', land));
             [].forEach.call(nation.commanders(), function (c) {
                 lines.push(sprintf('#commander "%s"', c.name()));
@@ -150,19 +154,19 @@ function makeMap(info, continuation) {
                     var num = Number(squad.name());
                     if (isNaN(num)) {
                         // must be a name
-                        lines.push(sprintf('#units %u "%s"', squad.quantity(), squad.name()));
+                        lines.push(sprintf('#units %s "%s"', squad.quantity(), squad.name()));
                     } else {
                         // specified by number
-                        lines.push(sprintf('#units %u %u', squad.quantity(), squad.name()));
+                        lines.push(sprintf('#units %s %u', squad.quantity(), squad.name()));
                     }
                 });
             });
 
             // Blessing next
-            lines.push(sprintf('#god %u "Sage"', nation.nationNumber()));
+            lines.push(sprintf('#god %s "Sage"', nation.nationNumber()));
             for (var key in nation.blessing) {
                 if (nation.blessing[key]() > 0) {
-                    lines.push(sprintf('#mag_%s %u', key, nation.blessing[key]()));
+                    lines.push(sprintf('#mag_%s %s', key, nation.blessing[key]()));
                 }
             }
         }

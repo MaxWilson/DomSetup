@@ -40,9 +40,11 @@
                         <button data-bind="click: clearCommanders">Clear</button>
                     </div>
                     <div data-bind="foreach: commanders">
+                        <hr />
                         <div>
                             <h4>Commander</h4>
                             Name: <input data-bind="value: name" />
+                            <button data-bind="click: function() { $parent.cloneCommander($data); }">Clone</button>
                         </div>
                         <h4>Magic Items</h4>
                         <button data-bind="click: addItem">Add item</button>
@@ -60,7 +62,7 @@
                     </div>
                 </div>
                 <h3>Blessing</h3>
-                <div data-bind="with: Blessing">
+                <div data-bind="with: blessing">
                     <p>Fire: <input data-bind="value:fire" /></p>
                     <p>Air: <input data-bind="value:air" /></p>
                     <p>Water: <input data-bind="value:water" /></p>
@@ -69,7 +71,6 @@
                     <p>Death: <input data-bind="value:death" /></p>
                     <p>Nature: <input data-bind="value:nature" /></p>
                     <p>Blood: <input data-bind="value:blood" /></p>
-                    <p>Holy: <input data-bind="value:priest" /></p>
                 </div>
                 <h3>Research</h3>
                 <div id="SpellTab">
