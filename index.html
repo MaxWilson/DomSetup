@@ -1,0 +1,96 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Dominions 4 battle setup</title>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/styles.css">
+    <script src="/resources/jquery.js"></script>
+    <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+    <script src="/resources/knockout-3.1.0.js"></script>
+    <script src="/resources/sprintf.js"></script>
+    <script src="/resources/DomSetup.js"></script>
+    <script>
+        $(function () {
+//            $('#tabs').tabs();
+        });
+    </script>
+</head>
+<body>
+    <h2>Dominions 4 Battle Setup</h2>
+    <h3>A tool to automate map/mod creation for battle testing in Dominions 4.</h3>
+    Currently under active development.
+
+    <div id="tabs" data-bind="jqTabs: { }">
+        <ul data-bind="foreach: nations">
+            <li>
+                <a data-bind="attr: { href: '#tab-' + index }, text: 'Nation #' + index"></a>
+            </li>
+        </ul>
+        <!-- ko foreach: nations -->
+        <div data-bind="attr: { id: 'tab-' + index }">
+            <div data-bind="accordion: { active: 1, collapsible: true }">
+                <h3>Nation</h3>
+                <div>
+                    5=EA Arco, 6=EA Ermor
+                    <div>
+                        Nation Number: <input data-bind="value: nationNumber" />
+                    </div>
+                </div>
+                <h3>Units</h3>
+                <div>
+                    <h4>Commanders</h4>
+                    <div>
+                        <button class="newUnit" data-bind="click: addCommander">New commander</button>
+                        <button data-bind="click: clearCommanders">Clear</button>
+                    </div>
+                    <div data-bind="foreach: commanders">
+                        <div>
+                            <h4>Commander</h4>
+                            Name: <input data-bind="value: name" />
+                        </div>
+                        <h4>Magic Items</h4>
+                        <button data-bind="click: addItem">Add item</button>
+                        <div data-bind="foreach: items">
+                            <div><input data-bind="value: name" /></div>
+                        </div>
+                        <h4>Squads</h4>
+                        <button data-bind="click: addSquad">Add squad</button>
+                        <div data-bind="foreach: squads">
+                            <div>
+                                <input data-bind="value: name" />
+                                <input data-bind="value: quantity" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h3>Blessing</h3>
+                <div data-bind="with: Blessing">
+                    <p>Fire: <input data-bind="value:fire" /></p>
+                    <p>Air: <input data-bind="value:air" /></p>
+                    <p>Water: <input data-bind="value:water" /></p>
+                    <p>Earth: <input data-bind="value:earth" /></p>
+                    <p>Astral: <input data-bind="value:astral" /></p>
+                    <p>Death: <input data-bind="value:death" /></p>
+                    <p>Nature: <input data-bind="value:nature" /></p>
+                    <p>Blood: <input data-bind="value:blood" /></p>
+                    <p>Holy: <input data-bind="value:priest" /></p>
+                </div>
+                <h3>Research</h3>
+                <div id="SpellTab">
+                    Mod generation coming soon
+                </div>
+                <h3>Gems</h3>
+                <div>
+                    Mod generation coming soon
+                </div>
+            </div>
+        </div>
+        <!-- /ko -->
+    </div>
+
+    <button id="btnMap">Download map</button>
+    <button id="btnMod" disabled>Download mod</button>
+</body>
+</html>
+
