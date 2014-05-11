@@ -157,7 +157,7 @@ function makeMap(info, continuation) {
                         lines.push(sprintf('#units %s "%s"', squad.quantity(), squad.name()));
                     } else {
                         // specified by number
-                        lines.push(sprintf('#units %s %u', squad.quantity(), squad.name()));
+                        lines.push(sprintf('#units %s %s', squad.quantity(), squad.name()));
                     }
                 });
             });
